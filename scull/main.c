@@ -13,6 +13,23 @@
  * we cannot take responsibility for errors or fitness for use.
  *
  */
+#include <linux/config.h>
+#include <linux/module.h>
+#include <linux/moduleparam.h>
+#include <linux/init.h>
+
+#include <linux/kernel.h>	/* printk() */
+#include <linux/slab.h>		/* kmalloc() */
+#include <linux/fs.h>		/* everything... */
+#include <linux/errno.h>	/* error codes */
+#include <linux/types.h>	/* size_t */
+#include <linux/proc_fs.h>
+#include <linux/fcntl.h>	/* O_ACCMODE */
+#include <linux/seq_file.h>
+#include <linux/cdev.h>
+
+#include <asm/system.h>		/* cli(), *_flags */
+#include <asm/uaccess.h>	/* copy_*_user */
 
 #include "scull.h"		/* local definitions */
 
@@ -26,11 +43,8 @@ int scull_qset =    SCULL_QSET;
 struct scull_dev *scull_devices;	/* allocated in scull_init_module */
 
 /* BEGIN OF FILE OPERATIONS */
-/*
- * Open and close
- */
-int scull_open(struct inode *inode, struct file *filp)
-{
+/* OPEN */
+int scull_open(struct inode *inode, struct file *filp) {
 	struct scull_dev *dev; /* device information */
 
 	dev = container_of(inode->i_cdev, struct scull_dev, cdev);
@@ -44,6 +58,11 @@ int scull_open(struct inode *inode, struct file *filp)
 		up(&dev->sem);
 	}
 	return 0;          /* success */
+}
+
+/* CLOSE */
+int scull_release(struct inode *inode, struct file *filp) {
+    return 0;
 }
 
 struct file_operations scull_fops = {
@@ -132,4 +151,4 @@ int scull_init_module(void)
 
 /* INIT CALL */
 module_init(scull_init_module);
-module_exit(scull_cleanup_module);
+// module_exit(scull_cleanup_module);
