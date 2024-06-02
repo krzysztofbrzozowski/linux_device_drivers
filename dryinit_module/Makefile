@@ -24,5 +24,5 @@ clean:
 
 else
     # called from kernel build system: just declare what our modules are
-	obj-m += dryinit_driver.o
+	obj-m += dryinit-module.o
 endif
