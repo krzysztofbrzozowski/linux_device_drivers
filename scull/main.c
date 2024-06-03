@@ -13,7 +13,6 @@
  * we cannot take responsibility for errors or fitness for use.
  *
  */
-#include <linux/config.h>
 #include <linux/module.h>
 #include <linux/moduleparam.h>
 #include <linux/init.h>
@@ -28,7 +27,7 @@
 #include <linux/seq_file.h>
 #include <linux/cdev.h>
 
-#include <asm/system.h>		/* cli(), *_flags */
+// #include <asm/system.h>		/* cli(), *_flags */
 #include <asm/uaccess.h>	/* copy_*_user */
 
 #include "scull.h"		/* local definitions */
@@ -41,6 +40,36 @@ int scull_quantum = SCULL_QUANTUM;
 int scull_qset =    SCULL_QSET;
 
 struct scull_dev *scull_devices;	/* allocated in scull_init_module */
+
+
+/*
+ * DO NOT QUITE UNDERSTAND UNDERSTAND
+ * Empty out the scull device; must be called with the device
+ * semaphore held.
+ */
+int scull_trim(struct scull_dev *dev)
+{
+	struct scull_qset *next, *dptr;
+	int qset = dev->qset;   /* "dev" is not-null */
+	int i;
+
+	for (dptr = dev->data; dptr; dptr = next) { /* all the list items */
+		if (dptr->data) {
+			for (i = 0; i < qset; i++)
+				kfree(dptr->data[i]);
+			kfree(dptr->data);
+			dptr->data = NULL;
+		}
+		next = dptr->next;
+		kfree(dptr);
+	}
+	dev->size = 0;
+	dev->quantum = scull_quantum;
+	dev->qset = scull_qset;
+	dev->data = NULL;
+	return 0;
+}
+
 
 /* BEGIN OF FILE OPERATIONS */
 /* OPEN */
@@ -66,11 +95,11 @@ int scull_release(struct inode *inode, struct file *filp) {
 }
 
 struct file_operations scull_fops = {
-	.owner =    THIS_MODULE,
-	.llseek =   scull_llseek,
-	.read =     scull_read,
-	.write =    scull_write,
-	.ioctl =    scull_ioctl,
+	// .owner =    THIS_MODULE,
+	// .llseek =   scull_llseek,
+	// .read =     scull_read,
+	// .write =    scull_write,
+	// .ioctl =    scull_ioctl,
 	.open =     scull_open,
 	.release =  scull_release,
 };
@@ -129,7 +158,8 @@ int scull_init_module(void)
 	for (i = 0; i < scull_nr_devs; i++) {
 		scull_devices[i].quantum = scull_quantum;
 		scull_devices[i].qset = scull_qset;
-		init_MUTEX(&scull_devices[i].sem);
+		// init_MUTEX(&scull_devices[i].sem);
+		mutex_init(&scull_devices[i].mutex);
 		scull_setup_cdev(&scull_devices[i], i);
 	}
 
@@ -145,7 +175,7 @@ int scull_init_module(void)
 	return 0; /* succeed */
 
   fail:
-	scull_cleanup_module();
+	// scull_cleanup_module();
 	return result;
 }
 
