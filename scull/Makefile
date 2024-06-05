@@ -1,3 +1,5 @@
+CONFIG_MODULE_SIG=n
+
 ifeq ($(KERNELRELEASE),)
 
     # Assume the source tree is where the running kernel was built

@@ -63,6 +63,12 @@ struct scull_dev {
 	struct cdev cdev;	      /* Char device structure		*/
 };
 
+int 	scull_trim(struct scull_dev *dev);
+int 	scull_open(struct inode *inode, struct file *filp);
+int 	scull_release(struct inode *inode, struct file *filp);
+void 	scull_cleanup_module(void);
+int 	scull_init_module(void);
+
 int     scull_p_init(dev_t dev);
 void    scull_p_cleanup(void);
 int     scull_access_init(dev_t dev);

@@ -47,8 +47,7 @@ struct scull_dev *scull_devices;	/* allocated in scull_init_module */
  * Empty out the scull device; must be called with the device
  * semaphore held.
  */
-int scull_trim(struct scull_dev *dev)
-{
+int scull_trim(struct scull_dev *dev) {
 	struct scull_qset *next, *dptr;
 	int qset = dev->qset;   /* "dev" is not-null */
 	int i;
@@ -104,12 +103,43 @@ struct file_operations scull_fops = {
 	.release =  scull_release,
 };
 
+/*
+ * The cleanup function is used to handle initialization failures as well.
+ * Thefore, it must be careful to work correctly even if some of the items
+ * have not been initialized
+ */
+void scull_cleanup_module(void)
+{
+	int i;
+	dev_t devno = MKDEV(scull_major, scull_minor);
+
+	/* Get rid of our char dev entries */
+	if (scull_devices) {
+		for (i = 0; i < scull_nr_devs; i++) {
+			scull_trim(scull_devices + i);
+			cdev_del(&scull_devices[i].cdev);
+		}
+		kfree(scull_devices);
+	}
+
+#ifdef SCULL_DEBUG /* use proc only if debugging */
+	scull_remove_proc();
+#endif
+
+	/* cleanup_module is never called if registering failed */
+	unregister_chrdev_region(devno, scull_nr_devs);
+
+	/* and call the cleanup functions for friend devices */
+	// scull_p_cleanup();
+	// scull_access_cleanup();
+
+}
+
 /* INIT */
 /*
  * Set up the char_dev structure for this device.
  */
-static void scull_setup_cdev(struct scull_dev *dev, int index)
-{
+static void scull_setup_cdev(struct scull_dev *dev, int index) {
 	int err, devno = MKDEV(scull_major, scull_minor + index);
     
 	cdev_init(&dev->cdev, &scull_fops);
@@ -121,8 +151,7 @@ static void scull_setup_cdev(struct scull_dev *dev, int index)
 		printk(KERN_NOTICE "Error %d adding scull%d", err, index);
 }
 
-int scull_init_module(void)
-{
+int scull_init_module(void) {
 	int result, i;
 	dev_t dev = 0;
 
@@ -134,8 +163,7 @@ int scull_init_module(void)
 		dev = MKDEV(scull_major, scull_minor);
 		result = register_chrdev_region(dev, scull_nr_devs, "scull");
 	} else {
-		result = alloc_chrdev_region(&dev, scull_minor, scull_nr_devs,
-				"scull");
+		result = alloc_chrdev_region(&dev, scull_minor, scull_nr_devs, "scull");
 		scull_major = MAJOR(dev);
 	}
 	if (result < 0) {
@@ -167,6 +195,7 @@ int scull_init_module(void)
 	dev = MKDEV(scull_major, scull_minor + scull_nr_devs);
 	// dev += scull_p_init(dev);
 	// dev += scull_access_init(dev);
+	printk(KERN_ALERT "scull initialized");
 
 #ifdef SCULL_DEBUG /* only when debugging */
 	scull_create_proc();
@@ -175,11 +204,12 @@ int scull_init_module(void)
 	return 0; /* succeed */
 
   fail:
-	// scull_cleanup_module();
+	scull_cleanup_module();
 	return result;
 }
 
 /* INIT CALL */
 module_init(scull_init_module);
-// module_exit(scull_cleanup_module);
+module_exit(scull_cleanup_module);
 MODULE_LICENSE("Dual BSD/GPL");
+MODULE_INFO(intree, "Y");
