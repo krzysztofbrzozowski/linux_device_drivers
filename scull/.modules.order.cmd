@@ -1,0 +1,1 @@
+savedcmd_/home/user/Documents/REPOS/linux_device_drivers/scull/modules.order := {   echo /home/user/Documents/REPOS/linux_device_drivers/scull/scull.o; :; } > /home/user/Documents/REPOS/linux_device_drivers/scull/modules.order

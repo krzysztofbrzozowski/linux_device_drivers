@@ -1,0 +1,1 @@
+savedcmd_/home/user/Documents/REPOS/linux_device_drivers/scull/scull.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/user/Documents/REPOS/linux_device_drivers/scull/scull.ko /home/user/Documents/REPOS/linux_device_drivers/scull/scull.o /home/user/Documents/REPOS/linux_device_drivers/scull/scull.mod.o

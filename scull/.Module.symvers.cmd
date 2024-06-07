@@ -1,0 +1,1 @@
+savedcmd_/home/user/Documents/REPOS/linux_device_drivers/scull/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/user/Documents/REPOS/linux_device_drivers/scull/Module.symvers -T /home/user/Documents/REPOS/linux_device_drivers/scull/modules.order -i Module.symvers -e 
