@@ -170,9 +170,8 @@ ssize_t scull_read(struct file *filp, char __user *buf, size_t count,
 	return retval;
 }
 
-ssize_t scull_write(struct file *filp, const char __user *buf, size_t count,
-                loff_t *f_pos)
-{
+ssize_t scull_write(struct file *filp, const char __user *buf, size_t count, loff_t *f_pos) {
+	printk(KERN_ALERT "Will write %zu bytes of data", (count));
 	struct scull_dev *dev = filp->private_data;
 	struct scull_qset *dptr;
 	int quantum = dev->quantum, qset = dev->qset;

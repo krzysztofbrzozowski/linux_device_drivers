@@ -69,6 +69,11 @@ int 	scull_release(struct inode *inode, struct file *filp);
 void 	scull_cleanup_module(void);
 int 	scull_init_module(void);
 
+ssize_t scull_read(struct file *filp, char __user *buf, size_t count,
+                   loff_t *f_pos);
+ssize_t scull_write(struct file *filp, const char __user *buf, size_t count,
+                    loff_t *f_pos);
+
 int     scull_p_init(dev_t dev);
 void    scull_p_cleanup(void);
 int     scull_access_init(dev_t dev);
