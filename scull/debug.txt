@@ -1,0 +1,1472 @@
+
+scull.ko:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <__pfx_scull_release>:
+__pfx_scull_release():
+   0:	90                   	nop
+   1:	90                   	nop
+   2:	90                   	nop
+   3:	90                   	nop
+   4:	90                   	nop
+   5:	90                   	nop
+   6:	90                   	nop
+   7:	90                   	nop
+   8:	90                   	nop
+   9:	90                   	nop
+   a:	90                   	nop
+   b:	90                   	nop
+   c:	90                   	nop
+   d:	90                   	nop
+   e:	90                   	nop
+   f:	90                   	nop
+
+0000000000000010 <scull_release>:
+scull_release():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:92
+	}
+	return 0;          /* success */
+}
+
+/* CLOSE */
+int scull_release(struct inode *inode, struct file *filp) {
+  10:	e8 00 00 00 00       	call   15 <scull_release+0x5>
+  15:	55                   	push   %rbp
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:94
+    return 0;
+}
+  16:	31 c0                	xor    %eax,%eax
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:92
+int scull_release(struct inode *inode, struct file *filp) {
+  18:	48 89 e5             	mov    %rsp,%rbp
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:94
+}
+  1b:	5d                   	pop    %rbp
+  1c:	e9 00 00 00 00       	jmp    21 <scull_release+0x11>
+  21:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  28:	00 00 00 00 
+  2c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000000030 <__pfx_scull_trim>:
+__pfx_scull_trim():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:94
+  30:	90                   	nop
+  31:	90                   	nop
+  32:	90                   	nop
+  33:	90                   	nop
+  34:	90                   	nop
+  35:	90                   	nop
+  36:	90                   	nop
+  37:	90                   	nop
+  38:	90                   	nop
+  39:	90                   	nop
+  3a:	90                   	nop
+  3b:	90                   	nop
+  3c:	90                   	nop
+  3d:	90                   	nop
+  3e:	90                   	nop
+  3f:	90                   	nop
+
+0000000000000040 <scull_trim>:
+scull_trim():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:50
+int scull_trim(struct scull_dev *dev) {
+  40:	e8 00 00 00 00       	call   45 <scull_trim+0x5>
+  45:	55                   	push   %rbp
+  46:	48 89 e5             	mov    %rsp,%rbp
+  49:	41 57                	push   %r15
+  4b:	41 56                	push   %r14
+  4d:	49 89 fe             	mov    %rdi,%r14
+  50:	41 55                	push   %r13
+  52:	41 54                	push   %r12
+  54:	53                   	push   %rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:52
+	int qset = dev->qset;   /* "dev" is not-null */
+  55:	4c 63 6f 0c          	movslq 0xc(%rdi),%r13
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:55
+	for (dptr = dev->data; dptr; dptr = next) { /* all the list items */
+  59:	4c 8b 27             	mov    (%rdi),%r12
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:52
+	int qset = dev->qset;   /* "dev" is not-null */
+  5c:	4d 89 ef             	mov    %r13,%r15
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:55 (discriminator 1)
+	for (dptr = dev->data; dptr; dptr = next) { /* all the list items */
+  5f:	49 c1 e5 03          	shl    $0x3,%r13
+  63:	4d 85 e4             	test   %r12,%r12
+  66:	75 17                	jne    7f <scull_trim+0x3f>
+  68:	eb 4a                	jmp    b4 <scull_trim+0x74>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:62
+		next = dptr->next;
+  6a:	49 8b 5c 24 08       	mov    0x8(%r12),%rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:63
+		kfree(dptr);
+  6f:	4c 89 e7             	mov    %r12,%rdi
+  72:	e8 00 00 00 00       	call   77 <scull_trim+0x37>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:55 (discriminator 1)
+	for (dptr = dev->data; dptr; dptr = next) { /* all the list items */
+  77:	48 85 db             	test   %rbx,%rbx
+  7a:	74 38                	je     b4 <scull_trim+0x74>
+  7c:	49 89 dc             	mov    %rbx,%r12
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:56
+		if (dptr->data) {
+  7f:	49 8b 3c 24          	mov    (%r12),%rdi
+  83:	48 85 ff             	test   %rdi,%rdi
+  86:	74 e2                	je     6a <scull_trim+0x2a>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:57 (discriminator 1)
+			for (i = 0; i < qset; i++)
+  88:	45 85 ff             	test   %r15d,%r15d
+  8b:	7e 18                	jle    a5 <scull_trim+0x65>
+  8d:	31 db                	xor    %ebx,%ebx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:58
+				kfree(dptr->data[i]);
+  8f:	48 8b 3c 1f          	mov    (%rdi,%rbx,1),%rdi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:57 (discriminator 1)
+			for (i = 0; i < qset; i++)
+  93:	48 83 c3 08          	add    $0x8,%rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:58
+				kfree(dptr->data[i]);
+  97:	e8 00 00 00 00       	call   9c <scull_trim+0x5c>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:59
+			kfree(dptr->data);
+  9c:	49 8b 3c 24          	mov    (%r12),%rdi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:57 (discriminator 1)
+			for (i = 0; i < qset; i++)
+  a0:	49 39 dd             	cmp    %rbx,%r13
+  a3:	75 ea                	jne    8f <scull_trim+0x4f>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:59
+			kfree(dptr->data);
+  a5:	e8 00 00 00 00       	call   aa <scull_trim+0x6a>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:60
+			dptr->data = NULL;
+  aa:	49 c7 04 24 00 00 00 	movq   $0x0,(%r12)
+  b1:	00 
+  b2:	eb b6                	jmp    6a <scull_trim+0x2a>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:66
+	dev->quantum = scull_quantum;
+  b4:	8b 15 00 00 00 00    	mov    0x0(%rip),%edx        # ba <scull_trim+0x7a>
+  ba:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # c0 <scull_trim+0x80>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:65
+	dev->size = 0;
+  c0:	49 c7 46 10 00 00 00 	movq   $0x0,0x10(%r14)
+  c7:	00 
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:68
+	dev->data = NULL;
+  c8:	49 c7 06 00 00 00 00 	movq   $0x0,(%r14)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:66
+	dev->quantum = scull_quantum;
+  cf:	48 c1 e2 20          	shl    $0x20,%rdx
+  d3:	48 09 d0             	or     %rdx,%rax
+  d6:	49 89 46 08          	mov    %rax,0x8(%r14)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:70
+}
+  da:	31 c0                	xor    %eax,%eax
+  dc:	5b                   	pop    %rbx
+  dd:	41 5c                	pop    %r12
+  df:	41 5d                	pop    %r13
+  e1:	41 5e                	pop    %r14
+  e3:	41 5f                	pop    %r15
+  e5:	5d                   	pop    %rbp
+  e6:	31 d2                	xor    %edx,%edx
+  e8:	31 ff                	xor    %edi,%edi
+  ea:	e9 00 00 00 00       	jmp    ef <scull_trim+0xaf>
+  ef:	90                   	nop
+
+00000000000000f0 <__pfx_scull_open>:
+__pfx_scull_open():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:70
+  f0:	90                   	nop
+  f1:	90                   	nop
+  f2:	90                   	nop
+  f3:	90                   	nop
+  f4:	90                   	nop
+  f5:	90                   	nop
+  f6:	90                   	nop
+  f7:	90                   	nop
+  f8:	90                   	nop
+  f9:	90                   	nop
+  fa:	90                   	nop
+  fb:	90                   	nop
+  fc:	90                   	nop
+  fd:	90                   	nop
+  fe:	90                   	nop
+  ff:	90                   	nop
+
+0000000000000100 <scull_open>:
+scull_open():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:75
+int scull_open(struct inode *inode, struct file *filp) {
+ 100:	e8 00 00 00 00       	call   105 <scull_open+0x5>
+ 105:	55                   	push   %rbp
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:82
+	if ( (filp->f_flags & O_ACCMODE) == O_WRONLY) {
+ 106:	8b 46 48             	mov    0x48(%rsi),%eax
+ 109:	83 e0 03             	and    $0x3,%eax
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:75
+int scull_open(struct inode *inode, struct file *filp) {
+ 10c:	48 89 e5             	mov    %rsp,%rbp
+ 10f:	41 54                	push   %r12
+ 111:	53                   	push   %rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:78
+	dev = container_of(inode->i_cdev, struct scull_dev, cdev);
+ 112:	48 8b 97 48 02 00 00 	mov    0x248(%rdi),%rdx
+ 119:	4c 8d 62 a8          	lea    -0x58(%rdx),%r12
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:79
+	filp->private_data = dev; /* for other methods */
+ 11d:	4c 89 a6 c8 00 00 00 	mov    %r12,0xc8(%rsi)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:82
+	if ( (filp->f_flags & O_ACCMODE) == O_WRONLY) {
+ 124:	83 f8 01             	cmp    $0x1,%eax
+ 127:	74 11                	je     13a <scull_open+0x3a>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:88
+	return 0;          /* success */
+ 129:	31 c0                	xor    %eax,%eax
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:89
+}
+ 12b:	5b                   	pop    %rbx
+ 12c:	41 5c                	pop    %r12
+ 12e:	5d                   	pop    %rbp
+ 12f:	31 d2                	xor    %edx,%edx
+ 131:	31 f6                	xor    %esi,%esi
+ 133:	31 ff                	xor    %edi,%edi
+ 135:	e9 00 00 00 00       	jmp    13a <scull_open+0x3a>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:83
+		if (down_interruptible(&dev->sem))
+ 13a:	48 8d 5a c8          	lea    -0x38(%rdx),%rbx
+ 13e:	48 89 df             	mov    %rbx,%rdi
+ 141:	e8 00 00 00 00       	call   146 <scull_open+0x46>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:83 (discriminator 1)
+ 146:	85 c0                	test   %eax,%eax
+ 148:	75 12                	jne    15c <scull_open+0x5c>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:85
+		scull_trim(dev); /* ignore errors */
+ 14a:	4c 89 e7             	mov    %r12,%rdi
+ 14d:	e8 00 00 00 00       	call   152 <scull_open+0x52>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:86
+		up(&dev->sem);
+ 152:	48 89 df             	mov    %rbx,%rdi
+ 155:	e8 00 00 00 00       	call   15a <scull_open+0x5a>
+ 15a:	eb cd                	jmp    129 <scull_open+0x29>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:84
+			return -ERESTARTSYS;
+ 15c:	b8 00 fe ff ff       	mov    $0xfffffe00,%eax
+ 161:	eb c8                	jmp    12b <scull_open+0x2b>
+ 163:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+ 16a:	00 00 00 00 
+ 16e:	66 90                	xchg   %ax,%ax
+
+0000000000000170 <__pfx_cleanup_module>:
+__pfx_cleanup_module():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:84
+ 170:	90                   	nop
+ 171:	90                   	nop
+ 172:	90                   	nop
+ 173:	90                   	nop
+ 174:	90                   	nop
+ 175:	90                   	nop
+ 176:	90                   	nop
+ 177:	90                   	nop
+ 178:	90                   	nop
+ 179:	90                   	nop
+ 17a:	90                   	nop
+ 17b:	90                   	nop
+ 17c:	90                   	nop
+ 17d:	90                   	nop
+ 17e:	90                   	nop
+ 17f:	90                   	nop
+
+0000000000000180 <cleanup_module>:
+scull_cleanup_module():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:241
+ * The cleanup function is used to handle initialization failures as well.
+ * Thefore, it must be careful to work correctly even if some of the items
+ * have not been initialized
+ */
+void scull_cleanup_module(void)
+{
+ 180:	e8 00 00 00 00       	call   185 <cleanup_module+0x5>
+ 185:	55                   	push   %rbp
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:246
+	int i;
+	dev_t devno = MKDEV(scull_major, scull_minor);
+
+	/* Get rid of our char dev entries */
+	if (scull_devices) {
+ 186:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 18d <cleanup_module+0xd>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:241
+{
+ 18d:	48 89 e5             	mov    %rsp,%rbp
+ 190:	41 55                	push   %r13
+ 192:	41 54                	push   %r12
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:243
+	dev_t devno = MKDEV(scull_major, scull_minor);
+ 194:	44 8b 25 00 00 00 00 	mov    0x0(%rip),%r12d        # 19b <cleanup_module+0x1b>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:241
+{
+ 19b:	53                   	push   %rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:243
+	dev_t devno = MKDEV(scull_major, scull_minor);
+ 19c:	41 c1 e4 14          	shl    $0x14,%r12d
+ 1a0:	44 0b 25 00 00 00 00 	or     0x0(%rip),%r12d        # 1a7 <cleanup_module+0x27>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:246
+	if (scull_devices) {
+ 1a7:	48 85 ff             	test   %rdi,%rdi
+ 1aa:	74 47                	je     1f3 <cleanup_module+0x73>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:247 (discriminator 1)
+		for (i = 0; i < scull_nr_devs; i++) {
+ 1ac:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 1b2 <cleanup_module+0x32>
+ 1b2:	85 c0                	test   %eax,%eax
+ 1b4:	7e 38                	jle    1ee <cleanup_module+0x6e>
+ 1b6:	45 31 ed             	xor    %r13d,%r13d
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:248
+			scull_trim(scull_devices + i);
+ 1b9:	4b 8d 5c 6d 00       	lea    0x0(%r13,%r13,2),%rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:247 (discriminator 1)
+		for (i = 0; i < scull_nr_devs; i++) {
+ 1be:	49 83 c5 01          	add    $0x1,%r13
+ 1c2:	48 c1 e3 06          	shl    $0x6,%rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:248
+			scull_trim(scull_devices + i);
+ 1c6:	48 01 df             	add    %rbx,%rdi
+ 1c9:	e8 00 00 00 00       	call   1ce <cleanup_module+0x4e>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:249
+			cdev_del(&scull_devices[i].cdev);
+ 1ce:	48 03 1d 00 00 00 00 	add    0x0(%rip),%rbx        # 1d5 <cleanup_module+0x55>
+ 1d5:	48 8d 7b 58          	lea    0x58(%rbx),%rdi
+ 1d9:	e8 00 00 00 00       	call   1de <cleanup_module+0x5e>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:247 (discriminator 1)
+		for (i = 0; i < scull_nr_devs; i++) {
+ 1de:	44 39 2d 00 00 00 00 	cmp    %r13d,0x0(%rip)        # 1e5 <cleanup_module+0x65>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:251
+		}
+		kfree(scull_devices);
+ 1e5:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 1ec <cleanup_module+0x6c>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:247 (discriminator 1)
+		for (i = 0; i < scull_nr_devs; i++) {
+ 1ec:	7f cb                	jg     1b9 <cleanup_module+0x39>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:251
+		kfree(scull_devices);
+ 1ee:	e8 00 00 00 00       	call   1f3 <cleanup_module+0x73>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:259
+#ifdef SCULL_DEBUG /* use proc only if debugging */
+	scull_remove_proc();
+#endif
+
+	/* cleanup_module is never called if registering failed */
+	unregister_chrdev_region(devno, scull_nr_devs);
+ 1f3:	8b 35 00 00 00 00    	mov    0x0(%rip),%esi        # 1f9 <cleanup_module+0x79>
+ 1f9:	44 89 e7             	mov    %r12d,%edi
+ 1fc:	e8 00 00 00 00       	call   201 <cleanup_module+0x81>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:265
+
+	/* and call the cleanup functions for friend devices */
+	// scull_p_cleanup();
+	// scull_access_cleanup();
+
+}
+ 201:	5b                   	pop    %rbx
+ 202:	41 5c                	pop    %r12
+ 204:	41 5d                	pop    %r13
+ 206:	5d                   	pop    %rbp
+ 207:	31 c0                	xor    %eax,%eax
+ 209:	31 f6                	xor    %esi,%esi
+ 20b:	31 ff                	xor    %edi,%edi
+ 20d:	e9 00 00 00 00       	jmp    212 <cleanup_module+0x92>
+cleanup_module():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:265
+ 212:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+ 219:	00 00 00 00 
+ 21d:	0f 1f 00             	nopl   (%rax)
+
+0000000000000220 <__pfx_init_module>:
+__pfx_scull_init_module():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:265
+ 220:	90                   	nop
+ 221:	90                   	nop
+ 222:	90                   	nop
+ 223:	90                   	nop
+ 224:	90                   	nop
+ 225:	90                   	nop
+ 226:	90                   	nop
+ 227:	90                   	nop
+ 228:	90                   	nop
+ 229:	90                   	nop
+ 22a:	90                   	nop
+ 22b:	90                   	nop
+ 22c:	90                   	nop
+ 22d:	90                   	nop
+ 22e:	90                   	nop
+ 22f:	90                   	nop
+
+0000000000000230 <init_module>:
+scull_init_module():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:283
+	/* Fail gracefully if need be */
+	if (err)
+		printk(KERN_NOTICE "Error %d adding scull%d", err, index);
+}
+
+int scull_init_module(void) {
+ 230:	e8 00 00 00 00       	call   235 <init_module+0x5>
+ 235:	55                   	push   %rbp
+ 236:	48 89 e5             	mov    %rsp,%rbp
+ 239:	41 57                	push   %r15
+ 23b:	41 56                	push   %r14
+ 23d:	41 55                	push   %r13
+ 23f:	41 54                	push   %r12
+ 241:	53                   	push   %rbx
+ 242:	48 83 ec 10          	sub    $0x10,%rsp
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:291
+
+/*
+ * Get a range of minor numbers to work with, asking for a dynamic
+ * major unless directed otherwise at load time.
+ */
+	if (scull_major) {
+ 246:	8b 3d 00 00 00 00    	mov    0x0(%rip),%edi        # 24c <init_module+0x1c>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:292
+		dev = MKDEV(scull_major, scull_minor);
+ 24c:	8b 35 00 00 00 00    	mov    0x0(%rip),%esi        # 252 <init_module+0x22>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:283
+int scull_init_module(void) {
+ 252:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
+ 259:	00 00 
+ 25b:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+ 25f:	31 c0                	xor    %eax,%eax
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:285
+	dev_t dev = 0;
+ 261:	c7 45 cc 00 00 00 00 	movl   $0x0,-0x34(%rbp)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:293
+		result = register_chrdev_region(dev, scull_nr_devs, "scull");
+ 268:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 26e <init_module+0x3e>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:291
+	if (scull_major) {
+ 26e:	85 ff                	test   %edi,%edi
+ 270:	0f 84 a6 01 00 00    	je     41c <init_module+0x1ec>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:292
+		dev = MKDEV(scull_major, scull_minor);
+ 276:	c1 e7 14             	shl    $0x14,%edi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:293
+		result = register_chrdev_region(dev, scull_nr_devs, "scull");
+ 279:	48 c7 c2 00 00 00 00 	mov    $0x0,%rdx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:292
+		dev = MKDEV(scull_major, scull_minor);
+ 280:	09 f7                	or     %esi,%edi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:293
+		result = register_chrdev_region(dev, scull_nr_devs, "scull");
+ 282:	89 c6                	mov    %eax,%esi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:292
+		dev = MKDEV(scull_major, scull_minor);
+ 284:	89 7d cc             	mov    %edi,-0x34(%rbp)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:293
+		result = register_chrdev_region(dev, scull_nr_devs, "scull");
+ 287:	e8 00 00 00 00       	call   28c <init_module+0x5c>
+ 28c:	89 c3                	mov    %eax,%ebx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:298
+	} else {
+		result = alloc_chrdev_region(&dev, scull_minor, scull_nr_devs, "scull");
+		scull_major = MAJOR(dev);
+	}
+	if (result < 0) {
+ 28e:	85 db                	test   %ebx,%ebx
+ 290:	0f 88 ae 01 00 00    	js     444 <init_module+0x214>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:307
+
+        /* 
+	 * allocate the devices -- we can't have them static, as the number
+	 * can be specified at load time
+	 */
+	scull_devices = kmalloc(scull_nr_devs * sizeof(struct scull_dev), GFP_KERNEL);
+ 296:	48 63 05 00 00 00 00 	movslq 0x0(%rip),%rax        # 29d <init_module+0x6d>
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:632
+		index = kmalloc_index(size);
+		return kmalloc_trace(
+				kmalloc_caches[kmalloc_type(flags, _RET_IP_)][index],
+				flags, size);
+	}
+	return __kmalloc(size, flags);
+ 29d:	be c0 0c 00 00       	mov    $0xcc0,%esi
+scull_init_module():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:307
+ 2a2:	4c 8d 24 40          	lea    (%rax,%rax,2),%r12
+ 2a6:	49 c1 e4 06          	shl    $0x6,%r12
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:632
+ 2aa:	4c 89 e7             	mov    %r12,%rdi
+ 2ad:	e8 00 00 00 00       	call   2b2 <init_module+0x82>
+scull_init_module():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:307 (discriminator 1)
+ 2b2:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # 2b9 <init_module+0x89>
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:632
+ 2b9:	48 89 c7             	mov    %rax,%rdi
+scull_init_module():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:308
+	if (!scull_devices) {
+ 2bc:	48 85 c0             	test   %rax,%rax
+ 2bf:	0f 84 98 01 00 00    	je     45d <init_module+0x22d>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:312
+		result = -ENOMEM;
+		goto fail;  /* Make this more graceful */
+	}
+	memset(scull_devices, 0, scull_nr_devs * sizeof(struct scull_dev));
+ 2c5:	48 63 05 00 00 00 00 	movslq 0x0(%rip),%rax        # 2cc <init_module+0x9c>
+ 2cc:	48 8d 14 40          	lea    (%rax,%rax,2),%rdx
+ 2d0:	48 89 c3             	mov    %rax,%rbx
+ 2d3:	48 c1 e2 06          	shl    $0x6,%rdx
+fortify_memset_chk():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/fortify-string.h:492
+	 * Always stop accesses beyond the struct that contains the
+	 * field, when the buffer's remaining size is known.
+	 * (The SIZE_MAX test is to optimize away checks where the buffer
+	 * lengths are unknown.)
+	 */
+	if (p_size != SIZE_MAX && p_size < size)
+ 2d7:	49 39 d4             	cmp    %rdx,%r12
+ 2da:	0f 82 89 01 00 00    	jb     469 <init_module+0x239>
+scull_init_module():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:312 (discriminator 3)
+ 2e0:	31 f6                	xor    %esi,%esi
+ 2e2:	e8 00 00 00 00       	call   2e7 <init_module+0xb7>
+ 2e7:	48 89 c7             	mov    %rax,%rdi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:315 (discriminator 1)
+
+        /* Initialize each device. */
+	for (i = 0; i < scull_nr_devs; i++) {
+ 2ea:	85 db                	test   %ebx,%ebx
+ 2ec:	0f 8e dc 00 00 00    	jle    3ce <init_module+0x19e>
+ 2f2:	45 31 ed             	xor    %r13d,%r13d
+ 2f5:	eb 1a                	jmp    311 <init_module+0xe1>
+ 2f7:	8b 1d 00 00 00 00    	mov    0x0(%rip),%ebx        # 2fd <init_module+0xcd>
+ 2fd:	49 83 c5 01          	add    $0x1,%r13
+ 301:	44 39 eb             	cmp    %r13d,%ebx
+ 304:	0f 8e c4 00 00 00    	jle    3ce <init_module+0x19e>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:316
+		scull_devices[i].quantum = scull_quantum;
+ 30a:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 311 <init_module+0xe1>
+ 311:	8b 15 00 00 00 00    	mov    0x0(%rip),%edx        # 317 <init_module+0xe7>
+ 317:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 31d <init_module+0xed>
+ 31d:	4b 8d 5c 6d 00       	lea    0x0(%r13,%r13,2),%rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:319
+		scull_devices[i].qset = scull_qset;
+		// init_MUTEX(&scull_devices[i].sem);
+		mutex_init(&scull_devices[i].mutex);
+ 322:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 329:	48 c1 e3 06          	shl    $0x6,%rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:316
+		scull_devices[i].quantum = scull_quantum;
+ 32d:	48 c1 e2 20          	shl    $0x20,%rdx
+ 331:	48 01 df             	add    %rbx,%rdi
+ 334:	48 09 d0             	or     %rdx,%rax
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:319
+		mutex_init(&scull_devices[i].mutex);
+ 337:	48 83 c7 38          	add    $0x38,%rdi
+ 33b:	48 c7 c2 00 00 00 00 	mov    $0x0,%rdx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:316
+		scull_devices[i].quantum = scull_quantum;
+ 342:	48 89 47 d0          	mov    %rax,-0x30(%rdi)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:319
+		mutex_init(&scull_devices[i].mutex);
+ 346:	e8 00 00 00 00       	call   34b <init_module+0x11b>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:320
+		scull_setup_cdev(&scull_devices[i], i);
+ 34b:	48 03 1d 00 00 00 00 	add    0x0(%rip),%rbx        # 352 <init_module+0x122>
+scull_setup_cdev():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:272 (discriminator 1)
+	int err, devno = MKDEV(scull_major, scull_minor + index);
+ 352:	44 8b 35 00 00 00 00 	mov    0x0(%rip),%r14d        # 359 <init_module+0x129>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:274
+	cdev_init(&dev->cdev, &scull_fops);
+ 359:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:272 (discriminator 1)
+	int err, devno = MKDEV(scull_major, scull_minor + index);
+ 360:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 366 <init_module+0x136>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:274
+	cdev_init(&dev->cdev, &scull_fops);
+ 366:	4c 8d 7b 58          	lea    0x58(%rbx),%r15
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:272 (discriminator 1)
+	int err, devno = MKDEV(scull_major, scull_minor + index);
+ 36a:	41 c1 e6 14          	shl    $0x14,%r14d
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:274
+	cdev_init(&dev->cdev, &scull_fops);
+ 36e:	4c 89 ff             	mov    %r15,%rdi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:272 (discriminator 1)
+	int err, devno = MKDEV(scull_major, scull_minor + index);
+ 371:	44 01 e8             	add    %r13d,%eax
+ 374:	41 09 c6             	or     %eax,%r14d
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:274
+	cdev_init(&dev->cdev, &scull_fops);
+ 377:	e8 00 00 00 00       	call   37c <init_module+0x14c>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:277
+	err = cdev_add (&dev->cdev, devno, 1);
+ 37c:	ba 01 00 00 00       	mov    $0x1,%edx
+ 381:	44 89 f6             	mov    %r14d,%esi
+ 384:	4c 89 ff             	mov    %r15,%rdi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:275
+	dev->cdev.owner = THIS_MODULE;
+ 387:	48 c7 83 98 00 00 00 	movq   $0x0,0x98(%rbx)
+ 38e:	00 00 00 00 
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:276
+	dev->cdev.ops = &scull_fops;
+ 392:	48 c7 83 a0 00 00 00 	movq   $0x0,0xa0(%rbx)
+ 399:	00 00 00 00 
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:277
+	err = cdev_add (&dev->cdev, devno, 1);
+ 39d:	e8 00 00 00 00       	call   3a2 <init_module+0x172>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:279
+	if (err)
+ 3a2:	85 c0                	test   %eax,%eax
+ 3a4:	0f 84 4d ff ff ff    	je     2f7 <init_module+0xc7>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:280
+		printk(KERN_NOTICE "Error %d adding scull%d", err, index);
+ 3aa:	44 89 ea             	mov    %r13d,%edx
+ 3ad:	89 c6                	mov    %eax,%esi
+ 3af:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+scull_init_module():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:315 (discriminator 1)
+	for (i = 0; i < scull_nr_devs; i++) {
+ 3b6:	49 83 c5 01          	add    $0x1,%r13
+scull_setup_cdev():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:280
+		printk(KERN_NOTICE "Error %d adding scull%d", err, index);
+ 3ba:	e8 00 00 00 00       	call   3bf <init_module+0x18f>
+scull_init_module():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:315 (discriminator 1)
+	for (i = 0; i < scull_nr_devs; i++) {
+ 3bf:	8b 1d 00 00 00 00    	mov    0x0(%rip),%ebx        # 3c5 <init_module+0x195>
+ 3c5:	44 39 eb             	cmp    %r13d,%ebx
+ 3c8:	0f 8f 3c ff ff ff    	jg     30a <init_module+0xda>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:324
+	}
+
+        /* At this point call the init function for any friend device */
+	dev = MKDEV(scull_major, scull_minor + scull_nr_devs);
+ 3ce:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 3d4 <init_module+0x1a4>
+ 3d4:	03 1d 00 00 00 00    	add    0x0(%rip),%ebx        # 3da <init_module+0x1aa>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:327
+	// dev += scull_p_init(dev);
+	// dev += scull_access_init(dev);
+	printk(KERN_ALERT "scull initialized");
+ 3da:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:324
+	dev = MKDEV(scull_major, scull_minor + scull_nr_devs);
+ 3e1:	c1 e0 14             	shl    $0x14,%eax
+ 3e4:	09 d8                	or     %ebx,%eax
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:333
+
+#ifdef SCULL_DEBUG /* only when debugging */
+	scull_create_proc();
+#endif
+
+	return 0; /* succeed */
+ 3e6:	31 db                	xor    %ebx,%ebx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:324
+	dev = MKDEV(scull_major, scull_minor + scull_nr_devs);
+ 3e8:	89 45 cc             	mov    %eax,-0x34(%rbp)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:327
+	printk(KERN_ALERT "scull initialized");
+ 3eb:	e8 00 00 00 00       	call   3f0 <init_module+0x1c0>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:338
+
+  fail:
+	scull_cleanup_module();
+	return result;
+}
+ 3f0:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+ 3f4:	65 48 2b 04 25 28 00 	sub    %gs:0x28,%rax
+ 3fb:	00 00 
+ 3fd:	75 59                	jne    458 <init_module+0x228>
+ 3ff:	48 83 c4 10          	add    $0x10,%rsp
+ 403:	89 d8                	mov    %ebx,%eax
+ 405:	5b                   	pop    %rbx
+ 406:	41 5c                	pop    %r12
+ 408:	41 5d                	pop    %r13
+ 40a:	41 5e                	pop    %r14
+ 40c:	41 5f                	pop    %r15
+ 40e:	5d                   	pop    %rbp
+ 40f:	31 d2                	xor    %edx,%edx
+ 411:	31 c9                	xor    %ecx,%ecx
+ 413:	31 f6                	xor    %esi,%esi
+ 415:	31 ff                	xor    %edi,%edi
+ 417:	e9 00 00 00 00       	jmp    41c <init_module+0x1ec>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:295
+		result = alloc_chrdev_region(&dev, scull_minor, scull_nr_devs, "scull");
+ 41c:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 423:	89 c2                	mov    %eax,%edx
+ 425:	48 8d 7d cc          	lea    -0x34(%rbp),%rdi
+ 429:	e8 00 00 00 00       	call   42e <init_module+0x1fe>
+ 42e:	89 c3                	mov    %eax,%ebx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:296
+		scull_major = MAJOR(dev);
+ 430:	8b 45 cc             	mov    -0x34(%rbp),%eax
+ 433:	c1 e8 14             	shr    $0x14,%eax
+ 436:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # 43c <init_module+0x20c>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:298
+	if (result < 0) {
+ 43c:	85 db                	test   %ebx,%ebx
+ 43e:	0f 89 52 fe ff ff    	jns    296 <init_module+0x66>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:299
+		printk(KERN_WARNING "scull: can't get major %d\n", scull_major);
+ 444:	8b 35 00 00 00 00    	mov    0x0(%rip),%esi        # 44a <init_module+0x21a>
+ 44a:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 451:	e8 00 00 00 00       	call   456 <init_module+0x226>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:300
+		return result;
+ 456:	eb 98                	jmp    3f0 <init_module+0x1c0>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:338
+}
+ 458:	e8 00 00 00 00       	call   45d <init_module+0x22d>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:336
+	scull_cleanup_module();
+ 45d:	e8 00 00 00 00       	call   462 <init_module+0x232>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:337
+	return result;
+ 462:	bb f4 ff ff ff       	mov    $0xfffffff4,%ebx
+ 467:	eb 87                	jmp    3f0 <init_module+0x1c0>
+fortify_memset_chk():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/fortify-string.h:493 (discriminator 20)
+		fortify_panic(FORTIFY_FUNC_memset, FORTIFY_WRITE, p_size, size, true);
+ 469:	4c 89 e6             	mov    %r12,%rsi
+ 46c:	bf 0f 00 00 00       	mov    $0xf,%edi
+ 471:	e8 00 00 00 00       	call   476 <init_module+0x246>
+scull_init_module():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/fortify-string.h:493 (discriminator 20)
+ 476:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+ 47d:	00 00 00 
+
+0000000000000480 <__pfx_scull_follow>:
+__pfx_scull_follow():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/fortify-string.h:493 (discriminator 20)
+ 480:	90                   	nop
+ 481:	90                   	nop
+ 482:	90                   	nop
+ 483:	90                   	nop
+ 484:	90                   	nop
+ 485:	90                   	nop
+ 486:	90                   	nop
+ 487:	90                   	nop
+ 488:	90                   	nop
+ 489:	90                   	nop
+ 48a:	90                   	nop
+ 48b:	90                   	nop
+ 48c:	90                   	nop
+ 48d:	90                   	nop
+ 48e:	90                   	nop
+ 48f:	90                   	nop
+
+0000000000000490 <scull_follow>:
+scull_follow():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:100
+{
+ 490:	e8 00 00 00 00       	call   495 <scull_follow+0x5>
+ 495:	55                   	push   %rbp
+ 496:	48 89 e5             	mov    %rsp,%rbp
+ 499:	41 55                	push   %r13
+ 49b:	41 54                	push   %r12
+ 49d:	53                   	push   %rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:101
+	struct scull_qset *qs = dev->data;
+ 49e:	4c 8b 27             	mov    (%rdi),%r12
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:100
+{
+ 4a1:	89 f3                	mov    %esi,%ebx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:104
+	if (! qs) {
+ 4a3:	4d 85 e4             	test   %r12,%r12
+ 4a6:	0f 84 9c 00 00 00    	je     548 <scull_follow+0xb8>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:112
+	while (n--) {
+ 4ac:	85 db                	test   %ebx,%ebx
+ 4ae:	0f 84 80 00 00 00    	je     534 <scull_follow+0xa4>
+hash_64_generic():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/hash.h:78
+#endif
+static __always_inline u32 hash_64_generic(u64 val, unsigned int bits)
+{
+#if BITS_PER_LONG == 64
+	/* 64x64-bit multiply is efficient on all 64-bit processors */
+	return val * GOLDEN_RATIO_64 >> (64 - bits);
+ 4b4:	49 bd eb 83 b5 80 46 	movabs $0x61c8864680b583eb,%r13
+ 4bb:	86 c8 61 
+ 4be:	eb 08                	jmp    4c8 <scull_follow+0x38>
+scull_follow():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/hash.h:78
+ 4c0:	49 89 c4             	mov    %rax,%r12
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:112
+ 4c3:	83 eb 01             	sub    $0x1,%ebx
+ 4c6:	74 6c                	je     534 <scull_follow+0xa4>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:113
+		if (!qs->next) {
+ 4c8:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+ 4cd:	48 85 c0             	test   %rax,%rax
+ 4d0:	75 ee                	jne    4c0 <scull_follow+0x30>
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:629
+				kmalloc_caches[kmalloc_type(flags, _RET_IP_)][index],
+ 4d2:	48 8b 45 08          	mov    0x8(%rbp),%rax
+kmalloc_type():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:438
+		return KMALLOC_RANDOM_START + hash_64(caller ^ random_kmalloc_seed,
+ 4d6:	48 33 05 00 00 00 00 	xor    0x0(%rip),%rax        # 4dd <scull_follow+0x4d>
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:628
+		return kmalloc_trace(
+ 4dd:	be c0 0c 00 00       	mov    $0xcc0,%esi
+hash_64_generic():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/hash.h:78
+ 4e2:	49 0f af c5          	imul   %r13,%rax
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:629 (discriminator 2)
+				kmalloc_caches[kmalloc_type(flags, _RET_IP_)][index],
+ 4e6:	48 c1 e8 3c          	shr    $0x3c,%rax
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:628
+		return kmalloc_trace(
+ 4ea:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+ 4f1:	00 
+ 4f2:	48 29 c2             	sub    %rax,%rdx
+ 4f5:	48 89 d0             	mov    %rdx,%rax
+ 4f8:	ba 10 00 00 00       	mov    $0x10,%edx
+ 4fd:	48 c1 e0 04          	shl    $0x4,%rax
+ 501:	48 8b b8 00 00 00 00 	mov    0x0(%rax),%rdi
+ 508:	e8 00 00 00 00       	call   50d <scull_follow+0x7d>
+scull_follow():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:114 (discriminator 1)
+			qs->next = kmalloc(sizeof(struct scull_qset), GFP_KERNEL);
+ 50d:	49 89 44 24 08       	mov    %rax,0x8(%r12)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:115
+			if (qs->next == NULL)
+ 512:	48 85 c0             	test   %rax,%rax
+ 515:	0f 84 95 00 00 00    	je     5b0 <scull_follow+0x120>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:117 (discriminator 3)
+			memset(qs->next, 0, sizeof(struct scull_qset));
+ 51b:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+ 522:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+ 529:	00 
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:119
+		qs = qs->next;
+ 52a:	4d 8b 64 24 08       	mov    0x8(%r12),%r12
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:112
+	while (n--) {
+ 52f:	83 eb 01             	sub    $0x1,%ebx
+ 532:	75 94                	jne    4c8 <scull_follow+0x38>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:123
+}
+ 534:	5b                   	pop    %rbx
+ 535:	4c 89 e0             	mov    %r12,%rax
+ 538:	41 5c                	pop    %r12
+ 53a:	41 5d                	pop    %r13
+ 53c:	5d                   	pop    %rbp
+ 53d:	31 d2                	xor    %edx,%edx
+ 53f:	31 f6                	xor    %esi,%esi
+ 541:	31 ff                	xor    %edi,%edi
+ 543:	e9 00 00 00 00       	jmp    548 <scull_follow+0xb8>
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:629
+				kmalloc_caches[kmalloc_type(flags, _RET_IP_)][index],
+ 548:	48 8b 45 08          	mov    0x8(%rbp),%rax
+kmalloc_type():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:438
+		return KMALLOC_RANDOM_START + hash_64(caller ^ random_kmalloc_seed,
+ 54c:	48 33 05 00 00 00 00 	xor    0x0(%rip),%rax        # 553 <scull_follow+0xc3>
+ 553:	49 89 fd             	mov    %rdi,%r13
+hash_64_generic():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/hash.h:78
+ 556:	48 ba eb 83 b5 80 46 	movabs $0x61c8864680b583eb,%rdx
+ 55d:	86 c8 61 
+ 560:	48 0f af c2          	imul   %rdx,%rax
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:628
+		return kmalloc_trace(
+ 564:	be c0 0c 00 00       	mov    $0xcc0,%esi
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:629 (discriminator 2)
+				kmalloc_caches[kmalloc_type(flags, _RET_IP_)][index],
+ 569:	48 c1 e8 3c          	shr    $0x3c,%rax
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:628
+		return kmalloc_trace(
+ 56d:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+ 574:	00 
+ 575:	48 29 c2             	sub    %rax,%rdx
+ 578:	48 89 d0             	mov    %rdx,%rax
+ 57b:	ba 10 00 00 00       	mov    $0x10,%edx
+ 580:	48 c1 e0 04          	shl    $0x4,%rax
+ 584:	48 8b b8 00 00 00 00 	mov    0x0(%rax),%rdi
+ 58b:	e8 00 00 00 00       	call   590 <scull_follow+0x100>
+scull_follow():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:105 (discriminator 1)
+		qs = dev->data = kmalloc(sizeof(struct scull_qset), GFP_KERNEL);
+ 590:	49 89 45 00          	mov    %rax,0x0(%r13)
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:628
+ 594:	49 89 c4             	mov    %rax,%r12
+scull_follow():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:106
+		if (qs == NULL)
+ 597:	48 85 c0             	test   %rax,%rax
+ 59a:	74 14                	je     5b0 <scull_follow+0x120>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:108 (discriminator 3)
+		memset(qs, 0, sizeof(struct scull_qset));
+ 59c:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+ 5a3:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+ 5aa:	00 
+ 5ab:	e9 fc fe ff ff       	jmp    4ac <scull_follow+0x1c>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:107
+			return NULL;  /* Never mind */
+ 5b0:	45 31 e4             	xor    %r12d,%r12d
+ 5b3:	e9 7c ff ff ff       	jmp    534 <scull_follow+0xa4>
+ 5b8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+ 5bf:	00 
+
+00000000000005c0 <__pfx_scull_read>:
+__pfx_scull_read():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:107
+ 5c0:	90                   	nop
+ 5c1:	90                   	nop
+ 5c2:	90                   	nop
+ 5c3:	90                   	nop
+ 5c4:	90                   	nop
+ 5c5:	90                   	nop
+ 5c6:	90                   	nop
+ 5c7:	90                   	nop
+ 5c8:	90                   	nop
+ 5c9:	90                   	nop
+ 5ca:	90                   	nop
+ 5cb:	90                   	nop
+ 5cc:	90                   	nop
+ 5cd:	90                   	nop
+ 5ce:	90                   	nop
+ 5cf:	90                   	nop
+
+00000000000005d0 <scull_read>:
+scull_read():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:131
+{
+ 5d0:	e8 00 00 00 00       	call   5d5 <scull_read+0x5>
+ 5d5:	55                   	push   %rbp
+ 5d6:	48 89 e5             	mov    %rsp,%rbp
+ 5d9:	41 57                	push   %r15
+ 5db:	49 89 d7             	mov    %rdx,%r15
+ 5de:	41 56                	push   %r14
+ 5e0:	41 55                	push   %r13
+ 5e2:	49 89 cd             	mov    %rcx,%r13
+ 5e5:	41 54                	push   %r12
+ 5e7:	53                   	push   %rbx
+ 5e8:	48 83 ec 20          	sub    $0x20,%rsp
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:132
+	struct scull_dev *dev = filp->private_data; 
+ 5ec:	4c 8b 8f c8 00 00 00 	mov    0xc8(%rdi),%r9
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:131
+{
+ 5f3:	48 89 75 c0          	mov    %rsi,-0x40(%rbp)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:139
+	if (down_interruptible(&dev->sem))
+ 5f7:	49 8d 41 20          	lea    0x20(%r9),%rax
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:134
+	int quantum = dev->quantum, qset = dev->qset;
+ 5fb:	41 8b 59 08          	mov    0x8(%r9),%ebx
+ 5ff:	45 8b 61 0c          	mov    0xc(%r9),%r12d
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:139
+	if (down_interruptible(&dev->sem))
+ 603:	4c 89 4d c8          	mov    %r9,-0x38(%rbp)
+ 607:	48 89 c7             	mov    %rax,%rdi
+ 60a:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+ 60e:	e8 00 00 00 00       	call   613 <scull_read+0x43>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:139 (discriminator 1)
+ 613:	85 c0                	test   %eax,%eax
+ 615:	0f 85 03 01 00 00    	jne    71e <scull_read+0x14e>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:141
+	if (*f_pos >= dev->size)
+ 61b:	4c 8b 4d c8          	mov    -0x38(%rbp),%r9
+ 61f:	4d 8b 75 00          	mov    0x0(%r13),%r14
+ 623:	49 8b 51 10          	mov    0x10(%r9),%rdx
+ 627:	49 39 d6             	cmp    %rdx,%r14
+ 62a:	0f 83 a8 00 00 00    	jae    6d8 <scull_read+0x108>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:143
+	if (*f_pos + count > dev->size)
+ 630:	4b 8d 3c 3e          	lea    (%r14,%r15,1),%rdi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:144
+		count = dev->size - *f_pos;
+ 634:	48 89 d6             	mov    %rdx,%rsi
+ 637:	4c 29 f6             	sub    %r14,%rsi
+ 63a:	48 39 fa             	cmp    %rdi,%rdx
+ 63d:	4c 0f 42 fe          	cmovb  %rsi,%r15
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:135
+	int itemsize = quantum * qset; /* how many bytes in the listitem */
+ 641:	44 0f af e3          	imul   %ebx,%r12d
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:147
+	item = (long)*f_pos / itemsize;
+ 645:	48 be 00 00 00 00 00 	movabs $0x8000000000000000,%rsi
+ 64c:	00 00 80 
+ 64f:	4d 63 e4             	movslq %r12d,%r12
+ 652:	49 39 f6             	cmp    %rsi,%r14
+ 655:	0f 84 a9 00 00 00    	je     704 <scull_read+0x134>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:147 (discriminator 3)
+ 65b:	4c 89 f0             	mov    %r14,%rax
+ 65e:	48 99                	cqto
+ 660:	49 f7 fc             	idiv   %r12
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:152
+	dptr = scull_follow(dev, item);
+ 663:	89 c6                	mov    %eax,%esi
+ 665:	4c 89 cf             	mov    %r9,%rdi
+ 668:	e8 00 00 00 00       	call   66d <scull_read+0x9d>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:154
+	if (dptr == NULL || !dptr->data || ! dptr->data[s_pos])
+ 66d:	48 85 c0             	test   %rax,%rax
+ 670:	74 66                	je     6d8 <scull_read+0x108>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:154 (discriminator 1)
+ 672:	48 8b 30             	mov    (%rax),%rsi
+ 675:	48 85 f6             	test   %rsi,%rsi
+ 678:	74 5e                	je     6d8 <scull_read+0x108>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:148 (discriminator 3)
+	rest = (long)*f_pos % itemsize;
+ 67a:	4c 89 f0             	mov    %r14,%rax
+ 67d:	48 99                	cqto
+ 67f:	49 f7 fc             	idiv   %r12
+ 682:	89 d0                	mov    %edx,%eax
+ 684:	99                   	cltd
+ 685:	f7 fb                	idiv   %ebx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:154 (discriminator 2)
+	if (dptr == NULL || !dptr->data || ! dptr->data[s_pos])
+ 687:	48 98                	cltq
+ 689:	48 8b 04 c6          	mov    (%rsi,%rax,8),%rax
+ 68d:	48 85 c0             	test   %rax,%rax
+ 690:	74 46                	je     6d8 <scull_read+0x108>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:158
+	if (count > quantum - q_pos)
+ 692:	29 d3                	sub    %edx,%ebx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:161
+	if (copy_to_user(buf, dptr->data[s_pos] + q_pos, count)) {
+ 694:	48 63 d2             	movslq %edx,%rdx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:158
+	if (count > quantum - q_pos)
+ 697:	48 63 db             	movslq %ebx,%rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:161
+	if (copy_to_user(buf, dptr->data[s_pos] + q_pos, count)) {
+ 69a:	4c 8d 24 10          	lea    (%rax,%rdx,1),%r12
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:158
+	if (count > quantum - q_pos)
+ 69e:	4c 39 fb             	cmp    %r15,%rbx
+ 6a1:	49 0f 47 df          	cmova  %r15,%rbx
+check_copy_size():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/thread_info.h:249 (discriminator 1)
+			__bad_copy_from();
+		else
+			__bad_copy_to();
+		return false;
+	}
+	if (WARN_ON_ONCE(bytes > INT_MAX))
+ 6a5:	48 81 fb ff ff ff 7f 	cmp    $0x7fffffff,%rbx
+ 6ac:	77 65                	ja     713 <scull_read+0x143>
+check_object_size():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/thread_info.h:215
+		__check_object_size(ptr, n, to_user);
+ 6ae:	ba 01 00 00 00       	mov    $0x1,%edx
+ 6b3:	48 89 de             	mov    %rbx,%rsi
+ 6b6:	4c 89 e7             	mov    %r12,%rdi
+ 6b9:	e8 00 00 00 00       	call   6be <scull_read+0xee>
+copy_to_user():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/uaccess.h:191
+
+static __always_inline unsigned long __must_check
+copy_to_user(void __user *to, const void *from, unsigned long n)
+{
+	if (check_copy_size(from, n, true))
+		n = _copy_to_user(to, from, n);
+ 6be:	48 8b 7d c0          	mov    -0x40(%rbp),%rdi
+ 6c2:	48 89 da             	mov    %rbx,%rdx
+ 6c5:	4c 89 e6             	mov    %r12,%rsi
+ 6c8:	e8 00 00 00 00       	call   6cd <scull_read+0xfd>
+scull_read():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:161 (discriminator 1)
+	if (copy_to_user(buf, dptr->data[s_pos] + q_pos, count)) {
+ 6cd:	48 85 c0             	test   %rax,%rax
+ 6d0:	75 43                	jne    715 <scull_read+0x145>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:165
+	*f_pos += count;
+ 6d2:	49 01 5d 00          	add    %rbx,0x0(%r13)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:166
+	retval = count;
+ 6d6:	eb 02                	jmp    6da <scull_read+0x10a>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:137
+	ssize_t retval = 0;
+ 6d8:	31 db                	xor    %ebx,%ebx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:169
+	up(&dev->sem);
+ 6da:	48 8b 7d d0          	mov    -0x30(%rbp),%rdi
+ 6de:	e8 00 00 00 00       	call   6e3 <scull_read+0x113>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:171
+}
+ 6e3:	48 83 c4 20          	add    $0x20,%rsp
+ 6e7:	48 89 d8             	mov    %rbx,%rax
+ 6ea:	5b                   	pop    %rbx
+ 6eb:	41 5c                	pop    %r12
+ 6ed:	41 5d                	pop    %r13
+ 6ef:	41 5e                	pop    %r14
+ 6f1:	41 5f                	pop    %r15
+ 6f3:	5d                   	pop    %rbp
+ 6f4:	31 d2                	xor    %edx,%edx
+ 6f6:	31 c9                	xor    %ecx,%ecx
+ 6f8:	31 f6                	xor    %esi,%esi
+ 6fa:	31 ff                	xor    %edi,%edi
+ 6fc:	45 31 c9             	xor    %r9d,%r9d
+ 6ff:	e9 00 00 00 00       	jmp    704 <scull_read+0x134>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:147
+	item = (long)*f_pos / itemsize;
+ 704:	49 83 fc ff          	cmp    $0xffffffffffffffff,%r12
+ 708:	0f 85 4d ff ff ff    	jne    65b <scull_read+0x8b>
+ 70e:	e9 00 00 00 00       	jmp    713 <scull_read+0x143>
+check_copy_size():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/thread_info.h:249 (discriminator 1)
+	if (WARN_ON_ONCE(bytes > INT_MAX))
+ 713:	0f 0b                	ud2
+scull_read():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:162
+		retval = -EFAULT;
+ 715:	48 c7 c3 f2 ff ff ff 	mov    $0xfffffffffffffff2,%rbx
+ 71c:	eb bc                	jmp    6da <scull_read+0x10a>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:140
+		return -ERESTARTSYS;
+ 71e:	48 c7 c3 00 fe ff ff 	mov    $0xfffffffffffffe00,%rbx
+ 725:	eb bc                	jmp    6e3 <scull_read+0x113>
+ 727:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+ 72e:	00 00 
+
+0000000000000730 <__pfx_scull_write>:
+__pfx_scull_write():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:140
+ 730:	90                   	nop
+ 731:	90                   	nop
+ 732:	90                   	nop
+ 733:	90                   	nop
+ 734:	90                   	nop
+ 735:	90                   	nop
+ 736:	90                   	nop
+ 737:	90                   	nop
+ 738:	90                   	nop
+ 739:	90                   	nop
+ 73a:	90                   	nop
+ 73b:	90                   	nop
+ 73c:	90                   	nop
+ 73d:	90                   	nop
+ 73e:	90                   	nop
+ 73f:	90                   	nop
+
+0000000000000740 <scull_write>:
+scull_write():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:173
+ssize_t scull_write(struct file *filp, const char __user *buf, size_t count, loff_t *f_pos) {
+ 740:	e8 00 00 00 00       	call   745 <scull_write+0x5>
+ 745:	55                   	push   %rbp
+ 746:	48 89 e5             	mov    %rsp,%rbp
+ 749:	41 57                	push   %r15
+ 74b:	41 56                	push   %r14
+ 74d:	49 89 ce             	mov    %rcx,%r14
+ 750:	41 55                	push   %r13
+ 752:	49 89 d5             	mov    %rdx,%r13
+ 755:	41 54                	push   %r12
+ 757:	53                   	push   %rbx
+ 758:	48 89 fb             	mov    %rdi,%rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:174
+	printk(KERN_ALERT "Will write %zu bytes of data", (count));
+ 75b:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:173
+ssize_t scull_write(struct file *filp, const char __user *buf, size_t count, loff_t *f_pos) {
+ 762:	48 83 ec 30          	sub    $0x30,%rsp
+ 766:	48 89 75 c0          	mov    %rsi,-0x40(%rbp)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:174
+	printk(KERN_ALERT "Will write %zu bytes of data", (count));
+ 76a:	48 89 d6             	mov    %rdx,%rsi
+ 76d:	e8 00 00 00 00       	call   772 <scull_write+0x32>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:175
+	struct scull_dev *dev = filp->private_data;
+ 772:	4c 8b a3 c8 00 00 00 	mov    0xc8(%rbx),%r12
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:177
+	int quantum = dev->quantum, qset = dev->qset;
+ 779:	41 8b 44 24 0c       	mov    0xc(%r12),%eax
+ 77e:	41 8b 5c 24 08       	mov    0x8(%r12),%ebx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:182
+	if (down_interruptible(&dev->sem))
+ 783:	4d 8d 7c 24 20       	lea    0x20(%r12),%r15
+ 788:	4c 89 ff             	mov    %r15,%rdi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:177
+	int quantum = dev->quantum, qset = dev->qset;
+ 78b:	89 45 b8             	mov    %eax,-0x48(%rbp)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:178
+	int itemsize = quantum * qset;
+ 78e:	0f af c3             	imul   %ebx,%eax
+ 791:	89 45 d0             	mov    %eax,-0x30(%rbp)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:182
+	if (down_interruptible(&dev->sem))
+ 794:	e8 00 00 00 00       	call   799 <scull_write+0x59>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:182 (discriminator 1)
+ 799:	85 c0                	test   %eax,%eax
+ 79b:	0f 85 b0 01 00 00    	jne    951 <scull_write+0x211>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:186
+	item = (long)*f_pos / itemsize;
+ 7a1:	49 8b 0e             	mov    (%r14),%rcx
+ 7a4:	41 89 c1             	mov    %eax,%r9d
+ 7a7:	4c 63 45 d0          	movslq -0x30(%rbp),%r8
+ 7ab:	48 b8 00 00 00 00 00 	movabs $0x8000000000000000,%rax
+ 7b2:	00 00 80 
+ 7b5:	48 39 c1             	cmp    %rax,%rcx
+ 7b8:	0f 84 dc 00 00 00    	je     89a <scull_write+0x15a>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:186 (discriminator 3)
+ 7be:	48 89 c8             	mov    %rcx,%rax
+ 7c1:	48 99                	cqto
+ 7c3:	49 f7 f8             	idiv   %r8
+ 7c6:	49 89 c1             	mov    %rax,%r9
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:187 (discriminator 3)
+	rest = (long)*f_pos % itemsize;
+ 7c9:	48 89 c8             	mov    %rcx,%rax
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:191
+	dptr = scull_follow(dev, item);
+ 7cc:	44 89 ce             	mov    %r9d,%esi
+ 7cf:	4c 89 e7             	mov    %r12,%rdi
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:187 (discriminator 3)
+	rest = (long)*f_pos % itemsize;
+ 7d2:	48 99                	cqto
+ 7d4:	49 f7 f8             	idiv   %r8
+ 7d7:	89 d0                	mov    %edx,%eax
+ 7d9:	99                   	cltd
+ 7da:	f7 fb                	idiv   %ebx
+ 7dc:	89 55 c8             	mov    %edx,-0x38(%rbp)
+ 7df:	89 45 d0             	mov    %eax,-0x30(%rbp)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:191
+	dptr = scull_follow(dev, item);
+ 7e2:	e8 00 00 00 00       	call   7e7 <scull_write+0xa7>
+ 7e7:	48 89 c1             	mov    %rax,%rcx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:192
+	if (dptr == NULL)
+ 7ea:	48 85 c0             	test   %rax,%rax
+ 7ed:	0f 84 44 01 00 00    	je     937 <scull_write+0x1f7>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:194
+	if (!dptr->data) {
+ 7f3:	48 8b 00             	mov    (%rax),%rax
+ 7f6:	48 85 c0             	test   %rax,%rax
+ 7f9:	0f 84 aa 00 00 00    	je     8a9 <scull_write+0x169>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:200
+	if (!dptr->data[s_pos]) {
+ 7ff:	48 63 55 d0          	movslq -0x30(%rbp),%rdx
+ 803:	4c 8d 04 d0          	lea    (%rax,%rdx,8),%r8
+ 807:	49 8b 38             	mov    (%r8),%rdi
+ 80a:	48 85 ff             	test   %rdi,%rdi
+ 80d:	0f 84 ec 00 00 00    	je     8ff <scull_write+0x1bf>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:206
+	if (count > quantum - q_pos)
+ 813:	48 63 45 c8          	movslq -0x38(%rbp),%rax
+ 817:	29 c3                	sub    %eax,%ebx
+ 819:	48 63 db             	movslq %ebx,%rbx
+ 81c:	4c 39 eb             	cmp    %r13,%rbx
+ 81f:	49 0f 47 dd          	cmova  %r13,%rbx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:209
+	if (copy_from_user(dptr->data[s_pos]+q_pos, buf, count)) {
+ 823:	4c 8d 2c 07          	lea    (%rdi,%rax,1),%r13
+check_copy_size():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/thread_info.h:249 (discriminator 1)
+ 827:	48 81 fb ff ff ff 7f 	cmp    $0x7fffffff,%rbx
+ 82e:	0f 87 0f 01 00 00    	ja     943 <scull_write+0x203>
+check_object_size():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/thread_info.h:215
+		__check_object_size(ptr, n, to_user);
+ 834:	31 d2                	xor    %edx,%edx
+ 836:	48 89 de             	mov    %rbx,%rsi
+ 839:	4c 89 ef             	mov    %r13,%rdi
+ 83c:	e8 00 00 00 00       	call   841 <scull_write+0x101>
+copy_from_user():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/uaccess.h:183
+		n = _copy_from_user(to, from, n);
+ 841:	48 8b 75 c0          	mov    -0x40(%rbp),%rsi
+ 845:	48 89 da             	mov    %rbx,%rdx
+ 848:	4c 89 ef             	mov    %r13,%rdi
+ 84b:	e8 00 00 00 00       	call   850 <scull_write+0x110>
+scull_write():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:209 (discriminator 1)
+ 850:	48 85 c0             	test   %rax,%rax
+ 853:	0f 85 ec 00 00 00    	jne    945 <scull_write+0x205>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:213
+	*f_pos += count;
+ 859:	49 8b 06             	mov    (%r14),%rax
+ 85c:	48 01 d8             	add    %rbx,%rax
+ 85f:	49 89 06             	mov    %rax,(%r14)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:217
+	if (dev->size < *f_pos)
+ 862:	49 39 44 24 10       	cmp    %rax,0x10(%r12)
+ 867:	73 05                	jae    86e <scull_write+0x12e>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:218
+		dev->size = *f_pos;
+ 869:	49 89 44 24 10       	mov    %rax,0x10(%r12)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:221
+	up(&dev->sem);
+ 86e:	4c 89 ff             	mov    %r15,%rdi
+ 871:	e8 00 00 00 00       	call   876 <scull_write+0x136>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:223
+}
+ 876:	48 83 c4 30          	add    $0x30,%rsp
+ 87a:	48 89 d8             	mov    %rbx,%rax
+ 87d:	5b                   	pop    %rbx
+ 87e:	41 5c                	pop    %r12
+ 880:	41 5d                	pop    %r13
+ 882:	41 5e                	pop    %r14
+ 884:	41 5f                	pop    %r15
+ 886:	5d                   	pop    %rbp
+ 887:	31 d2                	xor    %edx,%edx
+ 889:	31 c9                	xor    %ecx,%ecx
+ 88b:	31 f6                	xor    %esi,%esi
+ 88d:	31 ff                	xor    %edi,%edi
+ 88f:	45 31 c0             	xor    %r8d,%r8d
+ 892:	45 31 c9             	xor    %r9d,%r9d
+ 895:	e9 00 00 00 00       	jmp    89a <scull_write+0x15a>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:186
+	item = (long)*f_pos / itemsize;
+ 89a:	49 83 f8 ff          	cmp    $0xffffffffffffffff,%r8
+ 89e:	0f 85 1a ff ff ff    	jne    7be <scull_write+0x7e>
+ 8a4:	e9 00 00 00 00       	jmp    8a9 <scull_write+0x169>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:195
+		dptr->data = kmalloc(qset * sizeof(char *), GFP_KERNEL);
+ 8a9:	48 63 55 b8          	movslq -0x48(%rbp),%rdx
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:632
+	return __kmalloc(size, flags);
+ 8ad:	be c0 0c 00 00       	mov    $0xcc0,%esi
+ 8b2:	48 89 4d a8          	mov    %rcx,-0x58(%rbp)
+scull_write():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:195
+ 8b6:	48 c1 e2 03          	shl    $0x3,%rdx
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:632
+ 8ba:	48 89 d7             	mov    %rdx,%rdi
+ 8bd:	48 89 55 b0          	mov    %rdx,-0x50(%rbp)
+ 8c1:	e8 00 00 00 00       	call   8c6 <scull_write+0x186>
+scull_write():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:195 (discriminator 1)
+ 8c6:	48 8b 4d a8          	mov    -0x58(%rbp),%rcx
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:632
+ 8ca:	48 89 c7             	mov    %rax,%rdi
+scull_write():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:195 (discriminator 1)
+ 8cd:	48 89 01             	mov    %rax,(%rcx)
+ 8d0:	48 89 4d b8          	mov    %rcx,-0x48(%rbp)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:196
+		if (!dptr->data)
+ 8d4:	48 85 c0             	test   %rax,%rax
+ 8d7:	74 5e                	je     937 <scull_write+0x1f7>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:198 (discriminator 3)
+		memset(dptr->data, 0, qset * sizeof(char *));
+ 8d9:	48 8b 55 b0          	mov    -0x50(%rbp),%rdx
+ 8dd:	31 f6                	xor    %esi,%esi
+ 8df:	e8 00 00 00 00       	call   8e4 <scull_write+0x1a4>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:200
+	if (!dptr->data[s_pos]) {
+ 8e4:	48 8b 4d b8          	mov    -0x48(%rbp),%rcx
+ 8e8:	48 63 55 d0          	movslq -0x30(%rbp),%rdx
+ 8ec:	48 8b 01             	mov    (%rcx),%rax
+ 8ef:	4c 8d 04 d0          	lea    (%rax,%rdx,8),%r8
+ 8f3:	49 8b 38             	mov    (%r8),%rdi
+ 8f6:	48 85 ff             	test   %rdi,%rdi
+ 8f9:	0f 85 14 ff ff ff    	jne    813 <scull_write+0xd3>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:201
+		dptr->data[s_pos] = kmalloc(quantum, GFP_KERNEL);
+ 8ff:	48 63 fb             	movslq %ebx,%rdi
+kmalloc():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/slab.h:632
+ 902:	be c0 0c 00 00       	mov    $0xcc0,%esi
+ 907:	48 89 55 b0          	mov    %rdx,-0x50(%rbp)
+ 90b:	48 89 4d b8          	mov    %rcx,-0x48(%rbp)
+ 90f:	4c 89 45 d0          	mov    %r8,-0x30(%rbp)
+ 913:	e8 00 00 00 00       	call   918 <scull_write+0x1d8>
+scull_write():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:201 (discriminator 1)
+ 918:	4c 8b 45 d0          	mov    -0x30(%rbp),%r8
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:202
+		if (!dptr->data[s_pos])
+ 91c:	48 8b 4d b8          	mov    -0x48(%rbp),%rcx
+ 920:	48 8b 55 b0          	mov    -0x50(%rbp),%rdx
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:201 (discriminator 1)
+		dptr->data[s_pos] = kmalloc(quantum, GFP_KERNEL);
+ 924:	49 89 00             	mov    %rax,(%r8)
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:202
+		if (!dptr->data[s_pos])
+ 927:	48 8b 01             	mov    (%rcx),%rax
+ 92a:	48 8b 3c d0          	mov    (%rax,%rdx,8),%rdi
+ 92e:	48 85 ff             	test   %rdi,%rdi
+ 931:	0f 85 dc fe ff ff    	jne    813 <scull_write+0xd3>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:180
+	ssize_t retval = -ENOMEM; /* value used in "goto out" statements */
+ 937:	48 c7 c3 f4 ff ff ff 	mov    $0xfffffffffffffff4,%rbx
+ 93e:	e9 2b ff ff ff       	jmp    86e <scull_write+0x12e>
+check_copy_size():
+/home/user/Documents/REPOS/linux-6.9.6/./include/linux/thread_info.h:249 (discriminator 1)
+	if (WARN_ON_ONCE(bytes > INT_MAX))
+ 943:	0f 0b                	ud2
+scull_write():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:210
+		retval = -EFAULT;
+ 945:	48 c7 c3 f2 ff ff ff 	mov    $0xfffffffffffffff2,%rbx
+ 94c:	e9 1d ff ff ff       	jmp    86e <scull_write+0x12e>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:183
+		return -ERESTARTSYS;
+ 951:	48 c7 c3 00 fe ff ff 	mov    $0xfffffffffffffe00,%rbx
+ 958:	e9 19 ff ff ff       	jmp    876 <scull_write+0x136>
+
+Disassembly of section .text.unlikely:
+
+0000000000000000 <scull_read.cold>:
+scull_read():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:147 (discriminator 1)
+	item = (long)*f_pos / itemsize;
+   0:	48 83 ca ff          	or     $0xffffffffffffffff,%rdx
+   4:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+   b:	89 45 bc             	mov    %eax,-0x44(%rbp)
+   e:	4c 89 4d c8          	mov    %r9,-0x38(%rbp)
+  12:	e8 00 00 00 00       	call   17 <scull_read.cold+0x17>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:148
+	rest = (long)*f_pos % itemsize;
+  17:	4d 8b 75 00          	mov    0x0(%r13),%r14
+  1b:	be 01 00 00 00       	mov    $0x1,%esi
+  20:	8b 45 bc             	mov    -0x44(%rbp),%eax
+  23:	48 c1 e6 3f          	shl    $0x3f,%rsi
+  27:	4c 8b 4d c8          	mov    -0x38(%rbp),%r9
+  2b:	49 39 f6             	cmp    %rsi,%r14
+  2e:	0f 85 00 00 00 00    	jne    34 <scull_read.cold+0x34>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:148 (discriminator 1)
+  34:	48 83 ca ff          	or     $0xffffffffffffffff,%rdx
+  38:	4c 89 f6             	mov    %r14,%rsi
+  3b:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  42:	e8 00 00 00 00       	call   47 <scull_read.cold+0x47>
+  47:	4c 8b 4d c8          	mov    -0x38(%rbp),%r9
+  4b:	8b 45 bc             	mov    -0x44(%rbp),%eax
+  4e:	e9 00 00 00 00       	jmp    53 <scull_write.cold>
+
+0000000000000053 <scull_write.cold>:
+scull_write():
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:186 (discriminator 1)
+	item = (long)*f_pos / itemsize;
+  53:	48 83 ca ff          	or     $0xffffffffffffffff,%rdx
+  57:	48 89 c6             	mov    %rax,%rsi
+  5a:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  61:	44 89 4d c8          	mov    %r9d,-0x38(%rbp)
+  65:	4c 89 45 d0          	mov    %r8,-0x30(%rbp)
+  69:	e8 00 00 00 00       	call   6e <scull_write.cold+0x1b>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:187
+	rest = (long)*f_pos % itemsize;
+  6e:	49 8b 0e             	mov    (%r14),%rcx
+  71:	b8 01 00 00 00       	mov    $0x1,%eax
+  76:	4c 8b 45 d0          	mov    -0x30(%rbp),%r8
+  7a:	48 c1 e0 3f          	shl    $0x3f,%rax
+  7e:	44 8b 4d c8          	mov    -0x38(%rbp),%r9d
+  82:	48 39 c1             	cmp    %rax,%rcx
+  85:	0f 85 00 00 00 00    	jne    8b <scull_write.cold+0x38>
+/home/user/Documents/REPOS/linux_device_drivers/scull/main.c:187 (discriminator 1)
+  8b:	48 89 ce             	mov    %rcx,%rsi
+  8e:	48 83 ca ff          	or     $0xffffffffffffffff,%rdx
+  92:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  99:	44 89 4d b0          	mov    %r9d,-0x50(%rbp)
+  9d:	4c 89 45 c8          	mov    %r8,-0x38(%rbp)
+  a1:	48 89 4d d0          	mov    %rcx,-0x30(%rbp)
+  a5:	e8 00 00 00 00       	call   aa <scull_write.cold+0x57>
+  aa:	48 8b 4d d0          	mov    -0x30(%rbp),%rcx
+  ae:	4c 8b 45 c8          	mov    -0x38(%rbp),%r8
+  b2:	44 8b 4d b0          	mov    -0x50(%rbp),%r9d
+  b6:	e9 00 00 00 00       	jmp    bb <scull_fops+0x3b>
