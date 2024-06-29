@@ -78,4 +78,6 @@ void    scull_p_cleanup(void);
 int     scull_access_init(dev_t dev);
 void    scull_access_cleanup(void);
 
+static void scull_create_proc(void);
+
 #endif /* SCULL */

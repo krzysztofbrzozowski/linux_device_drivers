@@ -22,7 +22,7 @@
 #include <linux/fs.h>		/* everything... */
 #include <linux/errno.h>	/* error codes */
 #include <linux/types.h>	/* size_t */
-#include <linux/proc_fs.h>
+#include <linux/proc_fs.h>  /* For creating /proc file - debug */
 #include <linux/fcntl.h>	/* O_ACCMODE */
 #include <linux/seq_file.h>
 #include <linux/cdev.h>
@@ -31,6 +31,9 @@
 #include <asm/uaccess.h>	/* copy_*_user */
 
 #include "scull.h"		/* local definitions */
+
+/* Temp solution - move to makefile */
+#define SCULL_DEBUG TRUE
 
 /* MODULE PARAMS | CAN BE OVERWRITTEN DURING LOAD TIME */
 int scull_major =   SCULL_MAJOR;
@@ -41,6 +44,64 @@ int scull_qset =    SCULL_QSET;
 
 struct scull_dev *scull_devices;	/* allocated in scull_init_module */
 
+#ifdef SCULL_DEBUG /* use proc only if debugging */
+/*
+ * The proc filesystem: function to read and entry
+ */
+
+int scull_read_procmem(char *buf, char **start, off_t offset,
+                   int count, int *eof, void *data)
+{
+	int i, j, len = 0;
+	int limit = count - 80; /* Don't print more than this */
+
+	for (i = 0; i < scull_nr_devs && len <= limit; i++) {
+		struct scull_dev *d = &scull_devices[i];
+		struct scull_qset *qs = d->data;
+		if (mutex_lock_interruptible(&d->lock))
+			return -ERESTARTSYS;
+		len += sprintf(buf+len,"\nDevice %i: qset %i, q %i, sz %li\n",
+				i, d->qset, d->quantum, d->size);
+		for (; qs && len <= limit; qs = qs->next) { /* scan the list */
+			len += sprintf(buf + len, "  item at %p, qset at %p\n",
+					qs, qs->data);
+			if (qs->data && !qs->next) /* dump only the last item */
+				for (j = 0; j < d->qset; j++) {
+					if (qs->data[j])
+						len += sprintf(buf + len,
+								"    % 4i: %8p\n",
+								j, qs->data[j]);
+				}
+		}
+		mutex_unlock(&d->lock);
+	}
+	*eof = 1;
+	return len;
+}
+
+/*
+ * Actually create (and remove) the /proc file(s).
+ */
+
+static void scull_create_proc(void)
+{
+	// struct proc_dir_entry *entry;
+	proc_create_data("scullmem", 0 /* default mode */,
+			NULL /* parent dir */, proc_ops_wrapper(&scullmem_proc_ops, scullmem_pops),
+			NULL /* client data */);
+	// entry = create_proc_entry("scullseq", 0, NULL);
+	// if (entry)
+	// 	entry->proc_fops = &scull_proc_ops;
+}
+
+static void scull_remove_proc(void)
+{
+	/* no problem if it was not registered */
+	remove_proc_entry("scullmem", NULL /* parent dir */);
+	// remove_proc_entry("scullseq", NULL);
+}
+
+#endif 
 
 /*
  * DO NOT QUITE UNDERSTAND UNDERSTAND
