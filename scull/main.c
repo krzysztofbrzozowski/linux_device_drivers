@@ -31,6 +31,7 @@
 #include <asm/uaccess.h>	/* copy_*_user */
 
 #include "scull.h"		/* local definitions */
+#include "proc_ops_version.h"
 
 /* Temp solution - move to makefile */
 #define SCULL_DEBUG TRUE
@@ -48,41 +49,56 @@ struct scull_dev *scull_devices;	/* allocated in scull_init_module */
 /*
  * The proc filesystem: function to read and entry
  */
-
-int scull_read_procmem(char *buf, char **start, off_t offset,
-                   int count, int *eof, void *data)
+int scull_read_procmem(struct seq_file *s, void *v)
 {
-	int i, j, len = 0;
-	int limit = count - 80; /* Don't print more than this */
+        int i, j;
+        int limit = s->size - 80; /* Don't print more than this */
 
-	for (i = 0; i < scull_nr_devs && len <= limit; i++) {
-		struct scull_dev *d = &scull_devices[i];
-		struct scull_qset *qs = d->data;
-		if (mutex_lock_interruptible(&d->lock))
-			return -ERESTARTSYS;
-		len += sprintf(buf+len,"\nDevice %i: qset %i, q %i, sz %li\n",
-				i, d->qset, d->quantum, d->size);
-		for (; qs && len <= limit; qs = qs->next) { /* scan the list */
-			len += sprintf(buf + len, "  item at %p, qset at %p\n",
-					qs, qs->data);
-			if (qs->data && !qs->next) /* dump only the last item */
-				for (j = 0; j < d->qset; j++) {
-					if (qs->data[j])
-						len += sprintf(buf + len,
-								"    % 4i: %8p\n",
-								j, qs->data[j]);
-				}
-		}
-		mutex_unlock(&d->lock);
-	}
-	*eof = 1;
-	return len;
+        for (i = 0; i < scull_nr_devs && s->count <= limit; i++) {
+                struct scull_dev *d = &scull_devices[i];
+                struct scull_qset *qs = d->data;
+                if (mutex_lock_interruptible(&d->lock))
+                        return -ERESTARTSYS;
+                seq_printf(s,"\nDevice %i: qset %i, q %i, sz %li\n",
+                             i, d->qset, d->quantum, d->size);
+                for (; qs && s->count <= limit; qs = qs->next) { /* scan the list */
+                        seq_printf(s, "  item at %p, qset at %p\n",
+                                     qs, qs->data);
+                        if (qs->data && !qs->next) /* dump only the last item */
+                                for (j = 0; j < d->qset; j++) {
+                                        if (qs->data[j])
+                                                seq_printf(s, "    % 4i: %8p\n",
+                                                             j, qs->data[j]);
+                                }
+                }
+                mutex_unlock(&scull_devices[i].lock);
+        }
+        return 0;
 }
+
+/*
+ * Now to implement the /proc files we need only make an open
+ * method which sets up the sequence operators.
+ */
+static int scullmem_proc_open(struct inode *inode, struct file *file)
+{
+	return single_open(file, scull_read_procmem, NULL);
+}
+
+/*
+ * Create a set of file operations for our proc files.
+ */
+static struct file_operations scullmem_proc_ops = {
+	.owner   = THIS_MODULE,
+	.open    = scullmem_proc_open,
+	// .read    = seq_read,
+	// .llseek  = seq_lseek,
+	// .release = single_release
+};
 
 /*
  * Actually create (and remove) the /proc file(s).
  */
-
 static void scull_create_proc(void)
 {
 	// struct proc_dir_entry *entry;
