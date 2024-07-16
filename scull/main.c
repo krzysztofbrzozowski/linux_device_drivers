@@ -33,9 +33,6 @@
 #include "scull.h"		/* local definitions */
 #include "proc_ops_version.h"
 
-/* Temp solution - move to makefile */
-#define SCULL_DEBUG TRUE
-
 /* MODULE PARAMS | CAN BE OVERWRITTEN DURING LOAD TIME */
 int scull_major =   SCULL_MAJOR;
 int scull_minor =   0;
@@ -77,6 +74,64 @@ int scull_read_procmem(struct seq_file *s, void *v)
 }
 
 /*
+ * Here are our sequence iteration methods.  Our "position" is
+ * simply the device number.
+ */
+static void *scull_seq_start(struct seq_file *s, loff_t *pos)
+{
+	if (*pos >= scull_nr_devs)
+		return NULL;   /* No more to read */
+	return scull_devices + *pos;
+}
+
+static void *scull_seq_next(struct seq_file *s, void *v, loff_t *pos)
+{
+	(*pos)++;
+	if (*pos >= scull_nr_devs)
+		return NULL;
+	return scull_devices + *pos;
+}
+
+static void scull_seq_stop(struct seq_file *s, void *v)
+{
+	/* Actually, there's nothing to do here */
+}
+
+static int scull_seq_show(struct seq_file *s, void *v)
+{
+	struct scull_dev *dev = (struct scull_dev *) v;
+	struct scull_qset *d;
+	int i;
+
+	if (mutex_lock_interruptible(&dev->lock))
+		return -ERESTARTSYS;
+	seq_printf(s, "\nDevice %i: qset %i, q %i, sz %li\n",
+			(int) (dev - scull_devices), dev->qset,
+			dev->quantum, dev->size);
+	for (d = dev->data; d; d = d->next) { /* scan the list */
+		seq_printf(s, "  item at %p, qset at %p\n", d, d->data);
+		if (d->data && !d->next) /* dump only the last item */
+			for (i = 0; i < dev->qset; i++) {
+				if (d->data[i])
+					seq_printf(s, "    % 4i: %8p\n",
+							i, d->data[i]);
+			}
+	}
+	mutex_unlock(&dev->lock);
+	return 0;
+}
+
+/*
+ * Tie the sequence operators up.
+ */
+static struct seq_operations scull_seq_ops = {
+	.start = scull_seq_start,
+	.next  = scull_seq_next,
+	.stop  = scull_seq_stop,
+	.show  = scull_seq_show
+};
+
+/*
  * Now to implement the /proc files we need only make an open
  * method which sets up the sequence operators.
  */
@@ -85,15 +140,28 @@ static int scullmem_proc_open(struct inode *inode, struct file *file)
 	return single_open(file, scull_read_procmem, NULL);
 }
 
+static int scullseq_proc_open(struct inode *inode, struct file *file)
+{
+	return seq_open(file, &scull_seq_ops);
+}
+
 /*
  * Create a set of file operations for our proc files.
  */
 static struct file_operations scullmem_proc_ops = {
 	.owner   = THIS_MODULE,
 	.open    = scullmem_proc_open,
-	// .read    = seq_read,
-	// .llseek  = seq_lseek,
-	// .release = single_release
+	.read    = seq_read,
+	.llseek  = seq_lseek,
+	.release = single_release
+};
+
+static struct file_operations scullseq_proc_ops = {
+	.owner   = THIS_MODULE,
+	.open    = scullseq_proc_open,
+	.read    = seq_read,
+	.llseek  = seq_lseek,
+	.release = seq_release
 };
 
 /*
@@ -101,20 +169,17 @@ static struct file_operations scullmem_proc_ops = {
  */
 static void scull_create_proc(void)
 {
-	// struct proc_dir_entry *entry;
-	proc_create_data("scullmem", 0 /* default mode */,
+	proc_create_data("driver/scullmem", 0 /* default mode */,
 			NULL /* parent dir */, proc_ops_wrapper(&scullmem_proc_ops, scullmem_pops),
 			NULL /* client data */);
-	// entry = create_proc_entry("scullseq", 0, NULL);
-	// if (entry)
-	// 	entry->proc_fops = &scull_proc_ops;
+	proc_create("driver/scullseq", 0, NULL, proc_ops_wrapper(&scullseq_proc_ops, scullseq_pops));
 }
 
 static void scull_remove_proc(void)
 {
 	/* no problem if it was not registered */
-	remove_proc_entry("scullmem", NULL /* parent dir */);
-	// remove_proc_entry("scullseq", NULL);
+	remove_proc_entry("driver/scullmem", NULL /* parent dir */);
+	remove_proc_entry("driver/scullseq", NULL);
 }
 
 #endif 
